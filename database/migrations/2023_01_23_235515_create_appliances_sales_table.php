@@ -33,7 +33,7 @@ return new class extends Migration
             $table->integer('updated_by')->nullable();  
             $table->integer('created_by')->nullable(); 
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('restrict'); // $table->foreign('field on current table')->references('id')->on('related table')->onDelete('restrict')
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');            
+            $table->foreign('category_id')->references('id')->on('appliances_categories')->onDelete('restrict');            
             $table->foreign('product_model_id')->references('id')->on('appliances')->onDelete('restrict'); 
             $table->foreign('serial_number')->references('id')->on('serials')->onDelete('restrict');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('restrict');            

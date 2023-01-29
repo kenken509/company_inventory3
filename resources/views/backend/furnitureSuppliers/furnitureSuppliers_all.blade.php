@@ -46,14 +46,14 @@
                             <td> {{ $key+1}} </td>
                             <td> {{ $item->name }} </td> 
                             <td><!-- to implement relation -->
-                                {{-- @forelse($item->getProducts as $products)
+                                @forelse($item->getProducts as $products)
                                     <ul>
-                                        <li>{{$products->description}}</li>
+                                        <li>{{$products->product_model}}</li>
                                     </ul>
                                 @empty
                                     <p>No products related</p>    
                                     
-                                @endforelse --}}
+                                @endforelse
                             </td>
                             <td> {{ $item->mobileNo }} </td> 
                             <td> {{ $item->email }} </td> 

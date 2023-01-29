@@ -59,7 +59,7 @@
                             <!-- end row -->
 
                             <div class="form-group">
-                                <input type="submit" class="btn btn-info waves-effect waves-light" value="Add Product">
+                                <input type="submit" class="btn btn-info waves-effect waves-light" value="Update Product">
                             </div><!-- end row -->
                         </form>
                     </div>

@@ -113,7 +113,7 @@
 
                 <tbody>
                     <tr>
-                        <td colspan="8"></td>
+                        <td colspan="7"></td>
                             <td>
                                 <input type="text" name="estimated_amount" value="0" id="estimated_amount" class="form-control estimated_amount" readonly style="background-color: #ddd;" >
                             </td>

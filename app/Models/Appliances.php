@@ -37,5 +37,8 @@ class Appliances extends Model
     public function getBrand(){
         return $this->belongsTo(Brands::class, 'brand_id','id');
     }
+    public function getWorking(){
+        return $this->belongsTo(AppliancesWorkingStocks::class,'product_model_id','id')->where('status',0);
+    }
 }
 

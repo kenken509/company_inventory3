@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Pos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\{Orders, OrderCustomer, AppliancesWorkingStocks, AppliancesSales};
+use App\Models\{Orders, OrderCustomer, AppliancesWorkingStocks, AppliancesSales, Appliances};
 use App\Http\Resources\OrderResource;
 use Illuminate\Support\Carbon;
 use Auth;
@@ -20,7 +20,8 @@ class OrdersController extends Controller
     }
 
     public function viewOrder($id){
-        $order = Orders::find($id);        
+        $order = Orders::find($id); 
+        //dd($order);
         return view('backend.orders.view_order',compact('order'));
 
     }
@@ -38,19 +39,17 @@ class OrdersController extends Controller
         return redirect()->route('orders.view',$item->order_id);
     }
 
-    public function orderDelivered(Request $request){
-
+    public function orderDelivered(Request $request){     
         
 
-        
-
-        $allPacked = true;
+        try{
+            $allPacked = true;
+        DB::beginTransaction();
         $order =  Orders::findOrFail($request->id);
         $order->status = 'done';
        
         $items= $order->orders;
 
-         DB::beginTransaction();
         foreach($items as $item){
             if($item->status == 'packed'){
                 $item->status = 'delivered';
@@ -65,50 +64,58 @@ class OrdersController extends Controller
             $order->update();
 
             $soldItems = OrderCustomer::select('*')->where('order_id', $request->id)->get();
-        
-            foreach($soldItems as $item){
             
+            foreach($soldItems as $item){
+                
                 $relatedProduct = AppliancesWorkingStocks::where('product_model_id', $item->product_id)->first();
                 
-                
+                                
                 $date               = Carbon::now();
                 $reference          = 'Online sales';
-                $payment_mode       = 2;
+                
                 $supplier_id        = $relatedProduct->supplier_id;
-                $category_id        = $relatedProduct->category_id;
+                $category_id        = $relatedProduct->getCategory->id;
                 $product_model_id   = $relatedProduct->product_model_id;
                 $serial_id          = $relatedProduct->serial_id;
                 $qty                = $relatedProduct->qty;
                 $remarks            = $relatedProduct->remarks;
-                                                                        
-                // algo               
-                // save all details of each array to appliances sales table.
-                // deduct the quantity of delivery item from working stocks 
-                // return to appliances sales all and throw all data from appliances sales table.
-
-                $onlineSales = new AppliancesSales();
-                $onlineSales->date_out         = $date;
-                $onlineSales->reference        = $reference;
-                $onlineSales->payment_mode     = $payment_mode;
-                $onlineSales->category_id      = $category_id;
-                $onlineSales->supplier_id      = $supplier_id;
-                $onlineSales->product_model_id = $product_model_id;
-                $onlineSales->serial_number    = $serial_id;
-                $onlineSales->brand_id         = $relatedProduct->brand_id;
-                $onlineSales->description      = $relatedProduct->description;
-                $onlineSales->unit_cost        = $relatedProduct->unit_cost;
-                $onlineSales->srp              = $relatedProduct->srp;
-                $onlineSales->remarks          = $remarks; 
-                $onlineSales->created_by       = Auth::user()->id;
-                $onlineSales->created_at       = Carbon::now();     
-                $onlineSales->save();
-                                        
-                // DB::commit();
-                // $notification = array(
-                //     'message' => 'Successfully Added New Sales', 
-                //     'alert-type' => 'success',
-                //     );
-                //     return redirect()->route('appliancesSales.all')->with($notification); 
+                $brand_id           = $relatedProduct->brand_id;
+                $description        = $relatedProduct->description;
+                $unit_cost          = $relatedProduct->unit_cost;
+                $srp                = $relatedProduct->srp;
+                                
+                
+                AppliancesSales::insert([
+                    'date_out' => $date,
+                    'reference' => $reference,
+                    'payment_mode' => '2',
+                    'category_id' => $category_id,
+                    'supplier_id' => $supplier_id,
+                    'product_model_id' => $product_model_id,
+                    'serial_number' => $serial_id,
+                    'brand_id' => $brand_id,
+                    'description' => $description,
+                    'unit_cost' => $unit_cost,
+                    'srp' => $srp,
+                    'remarks' => $remarks,
+                ]);
+                
+                // $onlineSales = new AppliancesSales();
+                // $onlineSales->date_out         = $date;
+                // $onlineSales->reference        = $reference;
+                // $onlineSales->payment_mode     = '2';
+                // $onlineSales->product_model_id = $product_model_id;
+                // $onlineSales->category_id      = $relatedProduct->category_id;
+                // $onlineSales->supplier_id      = $supplier_id;                
+                // $onlineSales->serial_number    = $serial_id;
+                // $onlineSales->brand_id         = $relatedProduct->brand_id;
+                // $onlineSales->description      = $relatedProduct->description;
+                // $onlineSales->unit_cost        = $relatedProduct->unit_cost;
+                // $onlineSales->srp              = $relatedProduct->srp;
+                // $onlineSales->remarks          = $remarks; 
+                // $onlineSales->created_by       = Auth::user()->id;
+                // $onlineSales->created_at       = Carbon::now();     
+                // $onlineSales->save();                                                                        
            
             }// end foreach online sales
             DB::commit();
@@ -117,19 +124,25 @@ class OrdersController extends Controller
                 'alert-type' => 'success',
             );
             return redirect()->route('appliancesSales.all')->with($notification);
-        }
-        else{
-            DB::rollback();
+        }else{
             $notification = array(
                 'message' => 'Some items are not packed', 
                 'alert-type' => 'error',
             );
-            return redirect()->route('orders.view',$request->id)->with($notification); 
+            return redirect()->route('orders.view',$request->id)->with($notification);
+
         }
-        
-        
+
+        }catch(\Exception $e){
+            //dd($e);
+            DB::rollback();
+            $notification = array(
+                'message' => 'Something went wrong!', 
+                'alert-type' => 'error',
+            );
+            return redirect()->route('orders.view',$request->id)->with($notification); 
+        }        
+                
     }//end method
-
-
 
 }
