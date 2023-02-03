@@ -48,7 +48,7 @@
                             <td>
                                 @forelse($item->getProducts as $products)
                                     <ul>
-                                        <li>{{$products->description}}</li>
+                                        <li>{{$products->product_model}}</li>
                                     </ul>
                                 @empty
                                     <p>No products related</p>    

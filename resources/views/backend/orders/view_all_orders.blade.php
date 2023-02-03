@@ -41,7 +41,7 @@
                             <td> {{ $item->id }} </td>
                             <td> {{ $item->customer_name }} </td>                             
                             <td>
-                                <a href="{{route('orders.view',$item->id)}} " class="btn btn-info sm" title="Edit Data">  <i class="fas fa-eye"></i> </a>                                
+                                <a href="{{route('orders.view',$item->id)}} " class="btn btn-info sm" title="view orders">  <i class="fas fa-eye"></i> </a>                                
                             </td>
                         </tr>
                         @endforeach

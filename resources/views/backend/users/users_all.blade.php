@@ -46,9 +46,9 @@
                             <td> {{ $key+1}} </td>
                             <td> {{ $user->name }} </td> 
                             <td><img id="showImage" class="rounded avatar-lg" src="{{ (!empty($user->profile_image))? url('upload/admin_images/'.$user->profile_image):url('upload/no_image.jpg') }}" alt="Card image cap" style="width:50px; height:50px;"></td>
-                            <td> {{ "+63".$user->mobile_no}} </td> 
+                            <td> {{ $user->mobile_no}} </td> 
                             <td> {{ $user->email }} </td> 
-                            <td> {{ $user->role == 2 ? 'Inventory Clerk' : ($user->role == 3 ? 'Sales Clerk' : 'Admin') }} </td> 
+                            <td> {{ $user->role == 1 ? 'Admin' : ($user->role == 2 ? 'Inventory Clerk' : 'Customer') }} </td> 
                             <td>
                                 <a href="{{ route('user.edit',$user->id)}} " class="btn btn-info sm" title="Edit Data">  <i class="fas fa-edit"></i> </a>
 

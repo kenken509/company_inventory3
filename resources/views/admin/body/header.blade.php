@@ -17,7 +17,7 @@
                                     <img src="{{ asset('backend/assets/images/caparal.jpg') }}" alt="logo-sm-light" height="22">
                                 </span>
                                 <span class="logo-lg">
-                                    <img src="{{ asset('backend/assets/images/caparal logo.png') }}" alt="logo-light" height="50" width="200">
+                                    <img src="{{ asset('backend/assets/images/companyLogo2.png') }}" alt="logo-light" height="50" width="200">
                                 </span>
                             </a>
                         </div>

@@ -68,10 +68,10 @@ class OrdersController extends Controller
             foreach($soldItems as $item){
                 
                 $relatedProduct = AppliancesWorkingStocks::where('product_model_id', $item->product_id)->first();
-                
-                                
+                $ref = 'OS-'.$request->id;
+                 
                 $date               = Carbon::now();
-                $reference          = 'Online sales';
+                $reference          = $ref;
                 
                 $supplier_id        = $relatedProduct->supplier_id;
                 $category_id        = $relatedProduct->getCategory->id;

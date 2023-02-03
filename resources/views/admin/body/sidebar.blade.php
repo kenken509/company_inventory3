@@ -28,9 +28,10 @@
                     </a>
                 </li>
                  
-                 <hr>
+                
                  <!-- ____________TO IMPLEMENT ___________________________-->
-                 @if(Auth::user()->id == 1)
+                @if(Auth::user()->id == 1)
+                <hr>
                     <li>
                         <a href="javascript: void(0);" class="has-arrow waves-effect">
                             <i class="fas fa-user-cog"></i>
@@ -41,66 +42,66 @@
                         </ul>
                     </li><!-- end Manage Users -->
                     <hr>
-                @endif
                 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-tasks"></i>
-                        <span>Manage Categories</span>
-                    </a>                    
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href={{route('appliancesCategories.all')}}>Appliances</a></li>
-                    </ul>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href={{route('furnitureCategories.all')}} >Furnitures</a></li>
-                    </ul>
-                </li><!-- end Manage Categories -->
+                
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="fas fa-tasks"></i>
+                            <span>Manage Categories</span>
+                        </a>                    
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href={{route('appliancesCategories.all')}}>Appliances</a></li>
+                        </ul>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href={{route('furnitureCategories.all')}} >Furnitures</a></li>
+                        </ul>
+                    </li><!-- end Manage Categories -->
 
                 
                 
                 
                 <!-- ____________TO IMPLEMENT ___________________________-->
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-tasks"></i>
-                        <span>Manage Brands</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href={{ route('brands.all') }}>All Brands</a></li>
-                    </ul>
-                </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="fas fa-tasks"></i>
+                            <span>Manage Brands</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href={{ route('brands.all') }}>All Brands</a></li>
+                        </ul>
+                    </li>
                 <!-- end Manage Brands -->
 
-                 <li>
-                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-tasks"></i>
-                        <span>Manage Suppliers</span>
-                     </a>
-                     <ul class="sub-menu" aria-expanded="false">
-                         <li><a href={{ route('appLiancesSupplier.all') }}>Appliances Suppliers</a></li>
-                     </ul>
-                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href={{ route('furnitureSuppliers.all') }}>Furniture Suppliers</a></li>
-                    </ul>
-                 </li>
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect">
+                            <i class="fas fa-tasks"></i>
+                            <span>Manage Suppliers</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href={{ route('appLiancesSupplier.all') }}>Appliances Suppliers</a></li>
+                        </ul>
+                        <ul class="sub-menu" aria-expanded="false">
+                            <li><a href={{ route('furnitureSuppliers.all') }}>Furniture Suppliers</a></li>
+                        </ul>
+                    </li>
                  <!-- end Manage Suppliers -->
                  
 
               
 
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect" >
-                        <i class="fas fa-tasks"></i>
-                        <span>Manage Products</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li><a href={{ route('appliancesProducts.all') }}>Appliances</a></li>
-                    </ul>
-                    <ul class="sub-menu" aria-expanded="true">
-                        <li><a href={{ route('furnitureProducts.all') }}>Furnitures</a></li>
-                    </ul>
-                </li><!-- end Manage Products -->
-                
+                    <li>
+                        <a href="javascript: void(0);" class="has-arrow waves-effect" >
+                            <i class="fas fa-tasks"></i>
+                            <span>Manage Products</span>
+                        </a>
+                        <ul class="sub-menu" aria-expanded="true">
+                            <li><a href={{ route('appliancesProducts.all') }}>Appliances</a></li>
+                        </ul>
+                        <ul class="sub-menu" aria-expanded="true">
+                            <li><a href={{ route('furnitureProducts.all') }}>Furnitures</a></li>
+                        </ul>
+                    </li><!-- end Manage Products -->
+                @endif  
                 <hr>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

@@ -20,8 +20,8 @@ class FurnitureDefectivesController extends Controller
 
     public function FurnitureDefectivesReturn($id){
         
-        $unitToReturn = FurnitureDefectives::findOrFail($id)->first();
-
+        $unitToReturn = FurnitureDefectives::findOrFail($id);
+        
         DB::beginTransaction();
         try{
             
@@ -41,7 +41,7 @@ class FurnitureDefectivesController extends Controller
         }catch(\Exception $e){
             
             DB::rollback();
-            dd($e);
+            //dd($e);
             $notification = array(
                 'message' => 'Failed to Return, Something Went Wrong!', 
                 'alert-type' => 'error',
